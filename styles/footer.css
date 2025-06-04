@@ -1,0 +1,16 @@
+footer {
+  background: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+.social-icons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+}
+.social-icons img {
+  width: 48px;
+  height: 48px;
+}
