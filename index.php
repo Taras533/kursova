@@ -37,11 +37,11 @@
 
     <section id="sponsors">
         <div class="container">
-            <h2>Наші спонсори</h2>
+            <h2>Cпонсори</h2>
             <div class="sponsor-logos">
-                <a href="https://kelme.ua/"><img src="photos/logo-kelme.png" alt="Спонсор 1" /></a>
-                <img src="photos/logo_maxBUD.png" alt="Спонсор 2" />
-                <img src="photos/logo_betonBUD.png" alt="Спонсор 3" />
+                <a href="https://kelme.ua/"><img src="photos/sponsors/logo-kelme-removebg-preview.png" alt="Kelme" /></a>
+                <img src="photos/sponsors/logo_maxBUD.png" alt="MaxBud" />
+                <img src="photos/sponsors/sponsor_Sok_Bud-Beton-removebg-preview.png" alt="Сокаль Буд-бетон" />
             </div>
         </div>
     </section>

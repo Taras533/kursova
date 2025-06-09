@@ -10,7 +10,10 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 include "../admins/includes/headerAdmin.php";
 ?>
 
-<h2 style="display: flex; align-items:center; justify-content:center; height:500px;">Адмін-панель! <br> Не спало думку, що сюди додати, тому буде так 😁</h2>
+<div class="container text-center mt-5">
+    <img src="../../kursova/photos/admin.png" alt="Admin" class="img-fluid admin-img mx-auto d-block" style="width: 450px;
+    height: auto;">
+</div>
 
 
 <?php

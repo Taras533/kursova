@@ -1,26 +1,72 @@
+<?php session_start(); ?>
+
 <head>
   <title>ФК Жвирка</title>
-  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="/kursova/styles/header.css">
 </head>
 
 <body>
   <header>
     <div class="container">
-      <a href="index.php"><img
-          src="photos/logo-removebg-preview.png"
-          alt="Логотип клубу Жвирка"
-          class="logo" /></a>
+      <a href="/kursova/index.php">
+        <img src="/kursova/photos/logo-removebg-preview.png" alt="Логотип клубу Жвирка" class="logo" />
+      </a>
       <nav>
         <ul>
-          <li><a href="../../kursova/team.php">Команда</a></li>
-          <li><a href="../../kursova/standings.php">Турнірна таблиця</a></li>
-          <li><a href="#">Новини</a></li>
-          <li><a href="../../kursova/matches.php">Матчі</a></li>
-          <li><a href="../../kursova/login.php">Вхід</a></li>
+          <li><a href="/kursova/team.php">Команда</a></li>
+          <li><a href="/kursova/standings.php">Турнірна таблиця</a></li>
+          <li><a href="/kursova/matches.php">Матчі</a></li>
+
+          <?php if (isset($_SESSION['user_logged_in'])): ?>
+            <li><a href="/kursova/users/chat.php">Чат</a></li>
+            <li><a href="/kursova/users/logout_user.php">Вихід</a></li>
+
+          <?php elseif (isset($_SESSION['admin_logged_in'])): ?>
+            <li><a href="/kursova/admins/adminPanel.php">Адмін панель</a></li>
+            <li><a href="/kursova/admins/logout_admin.php">Вихід</a></li>
+
+          <?php else: ?>
+            <li><a href="/kursova/users/register_user.php">Реєстрація</a></li>
+            <li><a href="/kursova/users/login_user.php">Вхід фаната</a></li>
+            <li><a href="/kursova/login.php">Вхід адміна</a></li>
+          <?php endif; ?>
         </ul>
       </nav>
     </div>
   </header>
+
+
+
+  <?php
+  /*   Той шо нормально фуричив тіки забери   <?php  ?>
+
+  <head>
+    <title>ФК Жвирка</title>
+    <link rel="stylesheet" href="styles/header.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <a href="index.php"><img
+            src="photos/logo-removebg-preview.png"
+            alt="Логотип клубу Жвирка"
+            class="logo" /></a>
+        <nav>
+          <ul>
+            <li><a href="../../kursova/team.php">Команда</a></li>
+            <li><a href="../../kursova/standings.php">Турнірна таблиця</a></li>
+            <li><a href="#">Чат</a></li>
+            <li><a href="../../kursova/matches.php">Матчі</a></li>
+            <li><a href="../../kursova/users/register_user.php">Реєстрація / Вхід</a></li>
+            <li><a href="../../kursova/login.php">Вхід</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header> */
+
+  ?>
+
 
 
 

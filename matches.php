@@ -98,7 +98,7 @@ $active_type_friendly = ($type === 'friendly') ? 'active' : '';
                                 <p class="card-text"><strong>Стадіон:</strong> <?= htmlspecialchars($match['stadium']) ?></p>
                                 <p class="card-text"><strong>Турнір:</strong> <?= htmlspecialchars($match['tournament_name']) ?> (<?= htmlspecialchars($match['season']) ?>)</p>
                                 <?php if ($match['status'] === 'finished'): ?>
-                                    <p class="card-text match-score"><strong>Рахунок:</strong> <?= (int)$match['score_home'] ?> : <?= (int)$match['score_away'] ?></p>
+                                    <p class="card-text match-score" style="text-align: center;"><strong>Рахунок:</strong> <?= (int)$match['score_home'] ?> : <?= (int)$match['score_away'] ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>

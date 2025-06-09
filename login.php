@@ -25,15 +25,16 @@ include "../kursova/includes/header.php";
         <form method="post" action="login_process.php">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
             <div class="mb-3">
-                <label class="form-label">Ім’я користувача:</label>
-                <input type="text" name="username" class="form-control" required>
+                <label class="form-label">Логін користувача:</label>
+                <input type="text" name="username" class="form-control" placeholder="Введіть логін" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Пароль:</label>
-                <input type="password" name="password" class="form-control" required>
+                <input type="password" name="password" class="form-control" placeholder="Введіть пароль" required>
             </div>
             <div class="d-grid">
-                <input type="submit" value="Увійти" class="btn btn-primary">
+                <input type="submit" value="Увійти" class="btn btn-primary knopka">
+                <a href="../kursova/users/register_user.php" class="btn btn-secondary knopka" style="margin-top: 10px;">Реєстрація</a>
             </div>
         </form>
     </div>

@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
-include "../includes/headerAdmin.php"; // Переконайтеся, що headerAdmin.php вже підключає Bootstrap CSS
+include "../includes/headerAdmin.php";
 
 function fetchPlayers($conn, $nameFilter, $positionFilter)
 {
@@ -30,7 +30,6 @@ function fetchPlayers($conn, $nameFilter, $positionFilter)
 
     $sql .= " ORDER BY last_name ASC";
 
-    // Повертаємо всі результати
     $stmt = $conn->prepare($sql);
     if ($params) {
         $stmt->bind_param($types, ...$params);
@@ -39,7 +38,6 @@ function fetchPlayers($conn, $nameFilter, $positionFilter)
     $result = $stmt->get_result();
     $players = $result->fetch_all(MYSQLI_ASSOC);
 
-    // Рахуємо загальну кількість
     $stmt_total = $conn->prepare(str_replace('SELECT *', 'SELECT COUNT(*)', $sql));
     if ($params) {
         $stmt_total->bind_param($types, ...$params);
@@ -109,23 +107,27 @@ $coaches = fetchCoaches($conn, $search_coach);
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                     <button class="btn btn-success mb-2 mb-md-0" onclick="openAddPlayerModal()">+ Додати гравця</button>
-                    <form method="get" class="d-flex align-items-center flex-wrap">
-                        <input type="text" name="search_player" placeholder="Пошук по ПІБ"
-                            class="form-control me-2 mb-2 mb-md-0" style="max-width: 200px;"
-                            value="<?= htmlspecialchars($search_player) ?>">
-                        <select name="filter_position" class="form-select me-2 mb-2 mb-md-0" style="max-width: 150px;"
-                            onchange="this.form.submit()">
-                            <option value="">Усі позиції</option>
-                            <?php
-                            $positions = ['Воротар', 'Захисник', 'Півзахисник', 'Нападник'];
-                            foreach ($positions as $pos) {
-                                $selected = ($filter_position === $pos) ? 'selected' : '';
-                                echo "<option value='" . htmlspecialchars($pos) . "' $selected>" . htmlspecialchars($pos) . "</option>";
-                            }
-                            ?>
-                        </select>
-                        <!-- <button type="submit" class="btn btn-outline-primary mb-2 mb-md-0">Пошук/Фільтр</button> -->
-                    </form>
+                    <div class="row">
+                        <div class="col"></div>
+                        <form method="get" class="d-flex align-items-center flex-wrap">
+
+                            <input type="text" name="search_player" placeholder="Пошук по ПІБ"
+                                class="form-control me-2 mb-2 mb-md-0" style="max-width: 200px;"
+                                value="<?= htmlspecialchars($search_player) ?>">
+                            <select name="filter_position" class="form-select me-2 mb-2 mb-md-0" style="max-width: 150px;"
+                                onchange="this.form.submit()">
+                                <option value="">Усі позиції</option>
+                                <?php
+                                $positions = ['Воротар', 'Захисник', 'Півзахисник', 'Нападник'];
+                                foreach ($positions as $pos) {
+                                    $selected = ($filter_position === $pos) ? 'selected' : '';
+                                    echo "<option value='" . htmlspecialchars($pos) . "' $selected>" . htmlspecialchars($pos) . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <!-- <button type="submit" class="btn btn-outline-primary mb-2 mb-md-0">Пошук/Фільтр</button> -->
+                        </form>
+                    </div>
                 </div>
 
                 <?php if (!empty($players)): ?>

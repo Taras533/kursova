@@ -14,12 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $first_name   = trim($_POST['first_name'] ?? '');
     $last_name    = trim($_POST['last_name'] ?? '');
     $birth_date   = $_POST['birth_date'] ?? '';
-    $nationality  = trim($_POST['nationality'] ?? '');
     $position     = trim($_POST['position'] ?? '');
     $jersey_number = $_POST['jersey_number'] ?? null;
     $photo_path = null;
 
-    if ($first_name === '' || $last_name === '' || $birth_date === '' || $nationality === '' || $position === '') {
+    if ($first_name === '' || $last_name === '' || $birth_date === '' || $position === '') {
         http_response_code(400);
         exit("Всі поля мають бути заповнені.");
     }
@@ -27,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (
         !preg_match('/^[\p{L}\s\-]{2,50}$/u', $first_name) ||
         !preg_match('/^[\p{L}\s\-]{2,50}$/u', $last_name) ||
-        !preg_match('/^[\p{L}\s\-]{2,50}$/u', $nationality) ||
         !preg_match('/^[\p{L}\s\-]{2,50}$/u', $position)
     ) {
         http_response_code(400);
@@ -71,9 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $photo_path =  $new_filename;
     }
 
-    $stmt = $conn->prepare("INSERT INTO Player (first_name, last_name, birth_date, nationality, position, jersey_number, photo)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssis", $first_name, $last_name, $birth_date, $nationality, $position, $jersey_number, $photo_path);
+    $stmt = $conn->prepare("INSERT INTO Player (first_name, last_name, birth_date, position, jersey_number, photo)
+                            VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssis", $first_name, $last_name, $birth_date, $position, $jersey_number, $photo_path);
 
     if ($stmt->execute()) {
         header("Location: team_manage.php?success=1");

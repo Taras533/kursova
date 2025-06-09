@@ -23,10 +23,6 @@ function openAddPlayerModal() {
               <input type="date" name="birth_date" id="playerBirthDate" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label for="playerNationality" class="form-label">Національність</label>
-              <input type="text" name="nationality" id="playerNationality" class="form-control" placeholder="Введіть національність" required />
-            </div>
-            <div class="mb-3">
               <label for="playerPosition" class="form-label">Позиція</label>
               <select name="position" id="playerPosition" class="form-select" required>
                 <option value="Воротар">Воротар</option>
@@ -103,7 +99,6 @@ function openAddCoachModal() {
   addCoachModal.show();
 }
 
-// Функція для відкриття модального вікна редагування гравця
 function openEditPlayerModal(playerData) {
   const modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = `
@@ -137,12 +132,6 @@ function openEditPlayerModal(playerData) {
               <label for="editPlayerBirthDate" class="form-label">Дата народження</label>
               <input type="date" name="birth_date" id="editPlayerBirthDate" class="form-control" value="${
                 playerData.birth_date
-              }" required />
-            </div>
-            <div class="mb-3">
-              <label for="editPlayerNationality" class="form-label">Національність</label>
-              <input type="text" name="nationality" id="editPlayerNationality" class="form-control" value="${
-                playerData.nationality
               }" required />
             </div>
             <div class="mb-3">

@@ -72,26 +72,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
 }
-
-
-
-
-/*
-if ($stmt->num_rows === 1) {
-    $stmt->bind_result($id, $hashed_password);
-    $stmt->fetch();
-
-
-    if (password_verify($password, $hashed_password)) {
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_id'] = $id;
-        session_regenerate_id(true);
-        header("Location: /admins/adminPanel.php");
-        exit;
-    } else {
-        echo "Неправильні облікові дані";
-    }
-} else {
-    echo "Неправильні облікові дані";
-}
-    */
