@@ -15,7 +15,7 @@
                     <li><a href="../../../kursova/admins/team/team_manage.php">Команда</a></li>
                     <li><a href="../../../kursova/admins/standings/standings_manage.php">Турнірна таблиця</a></li>
                     <li><a href="#">Новини</a></li>
-                    <li><a href="/kursova/admins/manage_matches.php">Матчі</a></li>
+                    <li><a href="/kursova/admins/matches/matches.php">Матчі</a></li>
                     <li><a href="/kursova/admins/logout.php">Вийти</a></li>
                 </ul>
             </nav>

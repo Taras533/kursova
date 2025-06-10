@@ -5,27 +5,26 @@ include "../kursova/includes/header.php";
 $status = isset($_GET['status']) && in_array($_GET['status'], ['planned', 'finished']) ? $_GET['status'] : null;
 $type = isset($_GET['tournament_type']) && in_array($_GET['tournament_type'], ['championship', 'cup', 'friendly']) ? $_GET['tournament_type'] : null;
 
-$sql = "SELECT m.*, t.name AS tournament_name, t.season, t.tournament_type
-        FROM Matches m
-        JOIN Tournament t ON m.tournament_id = t.tournament_id
+$sql = "SELECT *
+        FROM matches_user_view
         WHERE 1=1";
 
 $params = [];
 $types = "";
 
 if ($status) {
-    $sql .= " AND m.status = ?";
+    $sql .= " AND status = ?";
     $params[] = $status;
     $types .= "s";
 }
 
 if ($type) {
-    $sql .= " AND t.tournament_type = ?";
+    $sql .= " AND tournament_type = ?";
     $params[] = $type;
     $types .= "s";
 }
 
-$sql .= " ORDER BY m.date DESC";
+$sql .= " ORDER BY date DESC";
 
 $stmt = $conn->prepare($sql);
 if ($types) {

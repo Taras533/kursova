@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once "../db/connect_admin.php";
 session_start();
 
@@ -18,9 +21,8 @@ $draws         = get_uint('draws');
 $losses        = get_uint('losses');
 $goals_for     = get_uint('goals_for');
 $goals_against = get_uint('goals_against');
-$team_name     = trim($_POST['team_name'] ?? '');
 
-if ($id === null || $wins === null || $draws === null || $losses === null || $goals_for === null || $goals_against === null || $team_name === '') {
+if ($id === null || $wins === null || $draws === null || $losses === null || $goals_for === null || $goals_against === null) {
     http_response_code(400);
     exit("Недійсні або неповні дані.");
 }
@@ -28,15 +30,23 @@ if ($id === null || $wins === null || $draws === null || $losses === null || $go
 $stmt = $conn->prepare("
     UPDATE Standings
     SET wins = ?, draws = ?, losses = ?, goals_for = ?, goals_against = ?
-    WHERE id = ? AND team_name = ?
+    WHERE id = ?
 ");
 
-$stmt->bind_param("iiiiiis", $wins, $draws, $losses, $goals_for, $goals_against, $id, $team_name);
+if ($stmt === false) {
+    http_response_code(500);
+    exit("Помилка підготовки запиту: " . $conn->error);
+}
+
+$stmt->bind_param("iiiiii", $wins, $draws, $losses, $goals_for, $goals_against, $id);
 
 if ($stmt->execute()) {
     header("Location: standings_manage.php?success=1");
     exit;
 } else {
     http_response_code(500);
-    exit("омилка оновлення запису: " . $conn->error);
+    exit("Помилка оновлення запису: " . $stmt->error);
 }
+
+$stmt->close();
+$conn->close();

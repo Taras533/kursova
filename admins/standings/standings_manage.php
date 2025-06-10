@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once "../db/connect_admin.php";
 session_start();
 
@@ -56,19 +59,19 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php $pos = 1;
+                <?php
                 foreach ($teams as $team): ?>
                     <tr>
-                        <td><?= $team['position'] ?></td>
+                        <td><?= htmlspecialchars($team['position']) ?></td>
                         <td><?= htmlspecialchars($team['team_name']) ?></td>
-                        <td><?= $team['matches_played'] ?></td>
-                        <td><?= $team['wins'] ?></td>
-                        <td><?= $team['draws'] ?></td>
-                        <td><?= $team['losses'] ?></td>
-                        <td><?= $team['goals_for'] ?></td>
-                        <td><?= $team['goals_against'] ?></td>
-                        <td><?= $team['goal_diff'] ?></td>
-                        <td><?= $team['points'] ?></td>
+                        <td><?= htmlspecialchars($team['matches_played']) ?></td>
+                        <td><?= htmlspecialchars($team['wins']) ?></td>
+                        <td><?= htmlspecialchars($team['draws']) ?></td>
+                        <td><?= htmlspecialchars($team['losses']) ?></td>
+                        <td><?= htmlspecialchars($team['goals_for']) ?></td>
+                        <td><?= htmlspecialchars($team['goals_against']) ?></td>
+                        <td><?= htmlspecialchars($team['goal_diff']) ?></td>
+                        <td><?= htmlspecialchars($team['points']) ?></td>
                         <td>
                             <button class="btn btn-sm btn-primary"
                                 onclick='openEditModal(<?= json_encode($team, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>
@@ -80,6 +83,7 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
             </tbody>
         </table>
     </div>
+
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form method="POST" action="edit_standing.php" class="modal-content">
@@ -89,22 +93,32 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="team_id">
-                    <input type="hidden" name="team_name" id="team_name">
+                    <input type="hidden" name="team_name" id="team_name_display">
 
-                    <label>Перемоги (В):</label>
-                    <input type="number" class="form-control" name="wins" id="wins" min="0" required>
+                    <div class="mb-3">
+                        <label for="wins" class="form-label">Перемоги (В):</label>
+                        <input type="number" class="form-control" name="wins" id="wins" min="0" required>
+                    </div>
 
-                    <label>Нічиї (Н):</label>
-                    <input type="number" class="form-control" name="draws" id="draws" min="0" required>
+                    <div class="mb-3">
+                        <label for="draws" class="form-label">Нічиї (Н):</label>
+                        <input type="number" class="form-control" name="draws" id="draws" min="0" required>
+                    </div>
 
-                    <label>Поразки (П):</label>
-                    <input type="number" class="form-control" name="losses" id="losses" min="0" required>
+                    <div class="mb-3">
+                        <label for="losses" class="form-label">Поразки (П):</label>
+                        <input type="number" class="form-control" name="losses" id="losses" min="0" required>
+                    </div>
 
-                    <label>ЗМ:</label>
-                    <input type="number" class="form-control" name="goals_for" id="goals_for" min="0" required>
+                    <div class="mb-3">
+                        <label for="goals_for" class="form-label">Забиті м'ячі (ЗМ):</label>
+                        <input type="number" class="form-control" name="goals_for" id="goals_for" min="0" required>
+                    </div>
 
-                    <label>ПМ:</label>
-                    <input type="number" class="form-control" name="goals_against" id="goals_against" min="0" required>
+                    <div class="mb-3">
+                        <label for="goals_against" class="form-label">Пропущені м'ячі (ПМ):</label>
+                        <input type="number" class="form-control" name="goals_against" id="goals_against" min="0" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Зберегти</button>
@@ -118,7 +132,7 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
     <script>
         function openEditModal(team) {
             document.getElementById('team_id').value = team.id;
-            document.getElementById('team_name').value = team.team_name;
+            document.getElementById('team_name_display').value = team.team_name;
             document.getElementById('wins').value = team.wins;
             document.getElementById('draws').value = team.draws;
             document.getElementById('losses').value = team.losses;
