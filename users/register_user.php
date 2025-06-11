@@ -74,6 +74,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .knopka:hover {
             transform: scale3d(1.05, 1.05, 1.05);
         }
+
+        .fade-in-form {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -92,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
-            <form method="post" class="p-4 bg-white border rounded shadow-sm">
+            <form method="post" class="p-4 bg-white border rounded shadow-sm fade-in-form">
                 <h2 class="mb-4 text-center">Реєстрація фаната</h2>
                 <div class="mb-3">
                     <label for="username" class="form-label">Імʼя користувача</label>

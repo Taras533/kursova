@@ -1,28 +1,25 @@
-/* styles/team_manage.css */
-
 body {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa; /* Light grey background */
-  color: #343a40; /* Dark text color */
+  background-color: #f8f9fa;
+  color: #343a40;
 }
 
-/* Основний контейнер для відступів */
 .container {
-  max-width: 1200px; /* Обмеження ширини для кращого вигляду */
+  max-width: 1200px;
 }
 
-/* Заголовки розділів */
 h1,
 h2 {
-  color: #007bff; /* Primary blue for headings */
+  color: #007bff;
 }
 
-/* Кастомні стилі для flexbox обгортки кнопок/форм */
 .d-flex.flex-wrap {
-  gap: 10px; /* Додаємо невеликий відступ між елементами в flex-контейнері */
+  gap: 10px;
 }
+/* .card-header.bg-primary {
+  background-color: #050f29 !important;
+} */
 
-/* Можна додати мінімальні стилі для кнопок, якщо хочете переопреділити Bootstrap */
 /*
 .btn-success {
   background-color: #28a745;
@@ -38,9 +35,6 @@ h2 {
   color: #212529;
 }
 */
-
-/* Якщо потрібно кастомний стиль для таблиці, що не покривається Bootstrap */
-/* Наприклад, якщо ви хотіли б інші тіні або бордери */
 /*
 .table-responsive .table {
   border-radius: .5rem;

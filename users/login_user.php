@@ -32,6 +32,19 @@ $csrf_token = $_SESSION['csrf_token'];
         .knopka:hover {
             transform: scale3d(1.05, 1.05, 1.05);
         }
+
+        .fade-in-form {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -42,7 +55,7 @@ $csrf_token = $_SESSION['csrf_token'];
 
 
 
-            <form method="post" action="login_user_process.php" class="p-4 bg-white border rounded shadow-sm">
+            <form method="post" action="login_user_process.php" class="p-4 bg-white border rounded shadow-sm fade-in-form">
                 <h2 class="mb-4 text-center">Вхід фаната</h2>
                 <?php if (isset($_SESSION['login_error'])): ?>
                     <div class="alert alert-danger text-center">

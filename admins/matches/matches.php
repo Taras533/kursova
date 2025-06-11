@@ -47,13 +47,22 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <title>Керування матчами</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .knopka {
+            transition: transform 0.2s ease-out;
+        }
+
+        .knopka:hover {
+            transform: scale3d(1.05, 1.05, 1.05);
+        }
+    </style>
 </head>
 
 <body class="bg-light">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Матчі</h2>
-            <a href="add_match.php" class="btn btn-success">+ Додати новий матч</a>
+            <a href="add_match.php" class="btn btn-success knopka ">+ Додати новий матч</a>
         </div>
 
         <!-- Фільтри -->
@@ -77,7 +86,7 @@ $result = $stmt->get_result();
                     </select>
                 </div>
                 <div class="col-md-3 align-self-end">
-                    <button type="submit" class="btn btn-primary">Фільтрувати</button>
+                    <button type="submit" class="btn btn-primary knopka ">Фільтрувати</button>
                 </div>
             </form>
         </div>
@@ -108,12 +117,12 @@ $result = $stmt->get_result();
                             <td><?= htmlspecialchars($match['status']) ?></td>
                             <td><?= ($match['status'] === 'finished') ? ((int)$match['score_home'] . ' : ' . (int)$match['score_away']) : '—' ?></td>
                             <td class="text-center">
-                                <a href="edit_match.php?id=<?= (int)$match['match_id'] ?>" class="btn btn-sm btn-warning">Редагувати</a>
+                                <a href="edit_match.php?id=<?= (int)$match['match_id'] ?>" class="btn btn-sm btn-warning knopka ">Редагувати</a>
 
                                 <form action="delete_match.php" method="post" onsubmit="return confirm('Ви впевнені, що хочете видалити цей матч?')" class="d-inline">
                                     <input type="hidden" name="match_id" value="<?= (int)$match['match_id'] ?>">
                                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                                    <button type="submit" class="btn btn-danger btn-sm knopka ">Видалити</button>
                                 </form>
                             </td>
                         </tr>

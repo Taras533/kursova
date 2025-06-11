@@ -35,6 +35,14 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
             background-color: #f1f1f1;
             transition: background-color 0.2s ease-in-out;
         }
+
+        .knopka {
+            transition: transform 0.2s ease-out;
+        }
+
+        .knopka:hover {
+            transform: scale3d(1.08, 1.08, 1.05);
+        }
     </style>
 </head>
 
@@ -73,7 +81,7 @@ $teams = $result->fetch_all(MYSQLI_ASSOC);
                         <td><?= htmlspecialchars($team['goal_diff']) ?></td>
                         <td><?= htmlspecialchars($team['points']) ?></td>
                         <td>
-                            <button class="btn btn-sm btn-primary"
+                            <button class="btn btn-sm btn-primary knopka"
                                 onclick='openEditModal(<?= json_encode($team, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>
                                 Редагувати
                             </button>

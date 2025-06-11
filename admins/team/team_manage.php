@@ -94,6 +94,15 @@ $coaches = fetchCoaches($conn, $search_coach);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/team_manage.css">
+    <style>
+        .knopka {
+            transition: transform 0.2s ease-out;
+        }
+
+        .knopka:hover {
+            transform: scale3d(1.05, 1.05, 1.05);
+        }
+    </style>
 </head>
 
 <body>
@@ -101,8 +110,8 @@ $coaches = fetchCoaches($conn, $search_coach);
         <h1 class="mb-4 text-center">Керування складом</h1>
 
         <div class="card shadow-sm mb-5">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Гравці</h2>
+            <div class="card-header bg-dark text-white">
+                <h2 class="h5 mb-0 text-center">Гравці</h2>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
@@ -153,11 +162,11 @@ $coaches = fetchCoaches($conn, $search_coach);
                                         <td><?= htmlspecialchars($p['jersey_number']) ?></td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <button type="button" class="btn btn-warning btn-sm me-2" onclick="openEditPlayerModal(<?= htmlspecialchars(json_encode($p)) ?>)">Редагувати</button>
+                                                <button type="button" class="btn btn-warning btn-sm me-2 knopka" onclick="openEditPlayerModal(<?= htmlspecialchars(json_encode($p)) ?>)">Редагувати</button>
                                                 <form method="post" action="delete.php" onsubmit="return confirm('Ви впевнені, що хочете видалити гравця <?= htmlspecialchars($p['first_name'] . ' ' . $p['last_name']) ?>?');" style="display:inline;">
                                                     <input type="hidden" name="source" value="player">
                                                     <input type="hidden" name="player_id" value="<?= htmlspecialchars($p['player_id']) ?>">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm knopka">Видалити</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -190,8 +199,8 @@ $coaches = fetchCoaches($conn, $search_coach);
         </div>
 
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Тренерський склад</h2>
+            <div class="card-header bg-dark text-white">
+                <h2 class="h5 mb-0 text-center">Тренерський склад</h2>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
@@ -223,11 +232,11 @@ $coaches = fetchCoaches($conn, $search_coach);
                                         <td><?= htmlspecialchars($c['position']) ?></td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <button type="button" class="btn btn-warning btn-sm me-2" onclick="openEditCoachModal(<?= htmlspecialchars(json_encode($c)) ?>)">Редагувати</button>
+                                                <button type="button" class="btn btn-warning btn-sm me-2 knopka" onclick="openEditCoachModal(<?= htmlspecialchars(json_encode($c)) ?>)">Редагувати</button>
                                                 <form method="post" action="delete.php" onsubmit="return confirm('Ви впевнені, що хочете видалити тренера <?= htmlspecialchars($c['first_name'] . ' ' . $c['last_name']) ?>?');" style="display:inline;">
                                                     <input type="hidden" name="source" value="coach">
                                                     <input type="hidden" name="coach_id" value="<?= htmlspecialchars($c['coach_id']) ?>">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm knopka">Видалити</button>
                                                 </form>
                                             </div>
                                         </td>
