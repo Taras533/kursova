@@ -38,6 +38,11 @@ if ($types) {
 }
 $stmt->execute();
 $result = $stmt->get_result();
+
+$matches_all = $result->fetch_all(MYSQLI_ASSOC);
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +112,7 @@ $result = $stmt->get_result();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($match = $result->fetch_assoc()): ?>
+                    <?php foreach ($matches_all as $match): ?>
                         <tr>
                             <td><?= htmlspecialchars(date('d.m.Y H:i', strtotime($match['date']))) ?></td>
                             <td><?= htmlspecialchars($match['team_home']) ?> — <?= htmlspecialchars($match['team_away']) ?></td>
@@ -117,16 +122,59 @@ $result = $stmt->get_result();
                             <td><?= htmlspecialchars($match['status']) ?></td>
                             <td><?= ($match['status'] === 'finished') ? ((int)$match['score_home'] . ' : ' . (int)$match['score_away']) : '—' ?></td>
                             <td class="text-center">
-                                <a href="edit_match.php?id=<?= (int)$match['match_id'] ?>" class="btn btn-sm btn-warning knopka ">Редагувати</a>
+                                <button class="btn btn-sm btn-warning knopka" data-bs-toggle="modal" data-bs-target="#editMatchModal<?= (int)$match['match_id'] ?>">Редагувати</button>
 
                                 <form action="delete_match.php" method="post" onsubmit="return confirm('Ви впевнені, що хочете видалити цей матч?')" class="d-inline">
                                     <input type="hidden" name="match_id" value="<?= (int)$match['match_id'] ?>">
                                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm knopka ">Видалити</button>
+                                    <button type="submit" class="btn btn-danger btn-sm knopka">Видалити</button>
                                 </form>
                             </td>
                         </tr>
-                    <?php endwhile; ?>
+
+                        <!-- Модальне вікно редагування -->
+                        <div class="modal fade" id="editMatchModal<?= (int)$match['match_id'] ?>" tabindex="-1" aria-labelledby="editMatchModalLabel<?= (int)$match['match_id'] ?>" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" action="edit_match.php">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editMatchModalLabel<?= (int)$match['match_id'] ?>">Редагувати матч</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="match_id" value="<?= (int)$match['match_id'] ?>">
+                                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
+                                            <div class="mb-3">
+                                                <label for="date<?= $match['match_id'] ?>" class="form-label">Дата та час</label>
+                                                <input type="datetime-local" class="form-control" name="date" id="date<?= $match['match_id'] ?>" value="<?= htmlspecialchars(date('Y-m-d\TH:i', strtotime($match['date']))) ?>" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Голи (господарі)</label>
+                                                <input type="number" name="score_home" class="form-control" min="0" value="<?= (int)$match['score_home'] ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Голи (гості)</label>
+                                                <input type="number" name="score_away" class="form-control" min="0" value="<?= (int)$match['score_away'] ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Статус</label>
+                                                <select name="status" class="form-select">
+                                                    <option value="planned" <?= $match['status'] === 'planned' ? 'selected' : '' ?>>Запланований</option>
+                                                    <option value="finished" <?= $match['status'] === 'finished' ? 'selected' : '' ?>>Завершений</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                                            <button type="submit" class="btn btn-primary">Зберегти</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -136,7 +184,3 @@ $result = $stmt->get_result();
 </body>
 
 </html>
-<?php
-$stmt->close();
-$conn->close();
-?>

@@ -51,10 +51,6 @@ $csrf_token = $_SESSION['csrf_token'];
 <body>
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="w-100" style="max-width: 500px;">
-
-
-
-
             <form method="post" action="login_user_process.php" class="p-4 bg-white border rounded shadow-sm fade-in-form">
                 <h2 class="mb-4 text-center">Вхід фаната</h2>
                 <?php if (isset($_SESSION['login_error'])): ?>

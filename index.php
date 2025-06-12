@@ -35,7 +35,7 @@
         </div>
     </section>
 
-    <section id="subscribe">
+    <!-- <section id="subscribe">
         <div class="container">
             <h2>Не пропускайте новини клубу!</h2>
             <p>Підпишіться на нашу розсилку:</p>
@@ -44,7 +44,7 @@
                 <button type="submit">Підписатися</button>
             </form>
         </div>
-    </section>
+    </section> -->
 
     <?php
     include '/var/www/html/kursova/includes/footer.php';
